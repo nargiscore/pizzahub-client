@@ -30,5 +30,27 @@ export default function Home() {
     <section className="section container"><p className="hero-kicker">THE PIZZHUB DIFFERENCE</p><h2 style={{ fontSize: 36, margin: '6px 0 24px' }}>Why Choose PizzaHub?</h2><div className="grid"><motion.article className="card" whileHover={{ y: -4 }}><h3>📍 Local favorites</h3><p className="muted">Discover nearby pizza shops and explore what each restaurant makes best.</p></motion.article><motion.article className="card" whileHover={{ y: -4 }}><h3>🧾 Clear menu details</h3><p className="muted">Compare item descriptions, categories, prices, and restaurant locations before ordering.</p></motion.article><motion.article className="card" whileHover={{ y: -4 }}><h3>📦 Order updates</h3><p className="muted">Send your delivery request and follow its status as the restaurant responds.</p></motion.article></div></section>
 
     <section className="section" style={{ background: 'var(--surface-2)' }}><div className="container"><p className="hero-kicker">THREE SIMPLE STEPS</p><h2 style={{ fontSize: 36, margin: '6px 0 24px' }}>How PizzaHub Works</h2><div className="grid"><div className="card"><span className="hero-kicker">01 / EXPLORE</span><h3>Find your pizza</h3><p className="muted">Browse approved restaurant menus and filter by category or location.</p></div><div className="card"><span className="hero-kicker">02 / ORDER</span><h3>Send your request</h3><p className="muted">Choose an item, select a delivery date, and provide your address.</p></div><div className="card"><span className="hero-kicker">03 / ENJOY</span><h3>Track the response</h3><p className="muted">See when the restaurant accepts or rejects your order request.</p></div></div></div></section>
+        <section className="section container">
+      <div
+        className="card"
+        style={{
+          textAlign: 'center',
+          padding: '48px 24px',
+          background: 'var(--surface)',
+        }}
+      >
+        <p className="hero-kicker">GROW WITH PIZZHUB</p>
+        <h2 style={{ fontSize: 32, margin: '8px 0 14px' }}>
+          Own a Pizza Restaurant?
+        </h2>
+        <p className="muted" style={{ maxWidth: 560, margin: '0 auto 24px' }}>
+          Join PizzaHub and showcase your delicious menu to more customers.
+          Manage your restaurant and grow your business with us.
+        </p>
+        <Link className="btn" href="/sign-up">
+          Become a Restaurant Partner →
+        </Link>
+      </div>
+    </section>
   </main>;
 }
