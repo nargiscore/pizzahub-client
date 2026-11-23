@@ -1,0 +1,1 @@
+import Link from 'next/link';export default function NotFound(){return <main className="container section"><h1>404 — Page not found</h1><p>We couldn't find that PizzaHub page.</p><Link className="btn" href="/">Back to Home</Link></main>}

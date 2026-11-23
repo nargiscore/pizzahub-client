@@ -1,0 +1,2 @@
+'use client';
+export default function GlobalError({ reset }: { error: Error & { digest?: string }; reset: () => void }) { return <main className="container section"><div className="card" style={{ maxWidth: 620, margin: 'auto', textAlign: 'center' }}><h1>Something went wrong</h1><p className="muted">We couldn't load this page. Please try again.</p><button className="btn" onClick={() => reset()}>Try Again</button></div></main>; }

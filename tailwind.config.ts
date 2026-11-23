@@ -1,0 +1,1 @@
+import type {Config} from 'tailwindcss';export default {content:['./src/**/*.{js,ts,jsx,tsx,mdx}'],theme:{extend:{colors:{pizza:{red:'#c93624',orange:'#f28b32',cream:'#fff8ed',ink:'#29211e'}}}},plugins:[]} satisfies Config;

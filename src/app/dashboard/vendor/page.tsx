@@ -1,0 +1,16 @@
+'use client';
+import { useEffect, useState } from 'react';
+import Link from 'next/link';
+import { api } from '@/lib/api';
+import { Badge } from '@/components/ui/badge';
+type Item = { _id: string; status: string; isActive: boolean };
+type Order = { _id: string; status: string };
+type Profile = { subscriptionPlan?: string; businessName?: string };
+export default function Vendor() {
+  const [items, setItems] = useState<Item[]>([]), [orders, setOrders] = useState<Order[]>([]), [profile, setProfile] = useState<Profile | null>(null), [error, setError] = useState('');
+  useEffect(() => { Promise.all([api<Item[]>('/menu/vendor/mine'), api<Order[]>('/orders/vendor'), api<Profile>('/profile')]).then(([i, o, p]) => { setItems(i); setOrders(o); setProfile(p); }).catch(e => setError(e.message)); }, []);
+  const stats = [['Total Menu Items', items.length], ['Active Menu Items', items.filter(x => x.isActive && x.status !== 'inactive').length], ['Pending Orders', orders.filter(x => x.status === 'pending').length], ['Accepted Orders', orders.filter(x => x.status === 'accepted').length]];
+  return <main className="section"><p className="hero-kicker">RESTAURANT WORKSPACE</p><div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 12 }}><div><h1 style={{ margin: '5px 0' }}>{profile?.businessName || 'Vendor Overview'}</h1><p className="muted">Manage your menu, incoming orders, and restaurant subscription.</p></div><Badge variant={profile?.subscriptionPlan === 'premium' ? 'success' : 'default'}>{profile?.subscriptionPlan === 'premium' ? '✦ Premium Vendor' : 'Free Plan'}</Badge></div>
+    {error ? <div className="empty-state">{error}</div> : !profile ? <div className="loading-panel">Loading vendor overview…</div> : <><div className="grid" style={{ marginTop: 24 }}>{stats.map(([name, value]) => <div className="metric-card" key={name as string}><small>{name}</small><strong>{value}</strong></div>)}</div><div className="grid" style={{ gridTemplateColumns: '1fr 1fr', marginTop: 22 }}><div className="card"><h2>Order Status</h2><p className="muted">Current order distribution</p><div className="chart-bars">{[['Pending', orders.filter(x => x.status === 'pending').length], ['Accepted', orders.filter(x => x.status === 'accepted').length], ['Rejected', orders.filter(x => x.status === 'rejected').length]].map(([label, count]) => <div className="chart-bar" key={label as string} style={{ height: `${Math.max(8, Number(count) / Math.max(1, orders.length) * 100)}%` }}><span>{label}</span></div>)}</div><p className="muted" style={{ marginTop: 30 }}>Menu: {items.filter(x => x.status === 'approved').length} approved · {items.filter(x => x.status === 'pending').length} pending · {items.filter(x => x.status === 'rejected').length} rejected</p></div><div className="card"><h2>Quick Actions</h2><div style={{ display: 'grid', gap: 10 }}><Link className="btn" href="/dashboard/vendor/add-item">Add Menu Item</Link><Link className="btn secondary" href="/dashboard/vendor/my-items">Manage My Items</Link><Link className="btn secondary" href="/dashboard/vendor/orders">View Customer Orders</Link><Link className="btn secondary" href="/dashboard/vendor/subscription">Manage Subscription</Link></div></div></div></>}
+  </main>;
+}
