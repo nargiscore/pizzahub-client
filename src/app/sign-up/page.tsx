@@ -2,6 +2,7 @@
 'use client';
 
 import { useState } from 'react';
+import type { FormEvent } from 'react';
 import Link from 'next/link';
 import { authClient } from '@/lib/auth-client';
 import { api } from '@/lib/api';
@@ -46,7 +47,7 @@ export default function SignUp() {
     }
   }
 
-  async function submit(e: React.FormEvent<HTMLFormElement>) {
+  async function submit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
     if (busy || googleBusy) return;
@@ -279,7 +280,9 @@ export default function SignUp() {
           onClick={google}
           disabled={busy || googleBusy}
         >
-          {googleBusy ? 'Connecting to Google…' : 'Continue with Google'}
+          {googleBusy
+            ? 'Connecting to Google…'
+            : 'Continue with Google'}
         </button>
 
         <p className="muted">
